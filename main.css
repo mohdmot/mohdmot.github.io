@@ -1,0 +1,126 @@
+@font-face {
+    font-family: Terminal ;
+    src: url('Terminal.woff');
+}
+
+body {
+    background-image: url('bg.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Terminal;
+    color: #fff;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade {
+    animation: fade-in 1s ease-in, fade-out 2s ease-in 1s;
+    animation-fill-mode: forwards;
+}
+.fadein {
+    animation: fade-in 2s ease-in;
+}
+
+.text-in-begin {
+    margin-top: 22%;
+}
+
+#big-box {
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    min-height: 90vh;
+    height: auto;
+    border: 1px rgb(173, 171, 209) solid;
+    border-radius: 30px;
+    text-align: left;
+}
+#small-box {
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    min-height: 90vh;
+    height: auto;
+    border: 1px rgb(173, 171, 209) solid;
+    border-radius: 30px;
+    text-align: left;
+}
+
+#pfp {
+    border-radius: 20px;
+    box-shadow: 6px 6px 2px rgba(0, 0, 0, 0.4);
+}
+
+#sml-sub1, #sml-sub2, #big-sub1 {
+    display: block;
+    width: 88%;
+}
+
+.text {
+    text-align: left;
+}
+
+.simg {
+    width: 30px;
+    vertical-align: middle;
+}
+.plimg {
+    width: 60px;
+}
+.pimg {
+    width: 53%;
+}
+
+a {
+    color: white;
+}
+
+@media screen and (min-width: 924px) {
+    #big-box {
+        width: 70%;
+        display: inline-block;
+        overflow: hidden;
+    }
+    #small-box {
+        width: 25%;
+        display: inline-block;
+        float: left;
+    }
+    #pfp {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 923px) {
+    #big-box {
+        width: 80%;
+        display: block;
+    }
+    #small-box {
+        width: 80%;
+        display: block;
+    }
+    #pfp {
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 499px) {
+    #pfp {
+        width: 240px;
+    }
+}
