@@ -135,6 +135,7 @@ function showTexts(index) {
     textElement.classList.add('text-in-begin');
     textElement.innerHTML = '<b>' + texts[index] + '</b>';
     textContainer.appendChild(textElement);
+    document.body.insertAdjacentHTML('beforeend','<center >\n    <div >\n        <center>\n            <div>\n                <br>&ensp;&ensp;\n            </div>\n        </center>\n        <center>\n            <div >\n            </div>\n        </center>\n    </div>\n    &ensp;\n    <div>\n        <center><div>\n            <br>&ensp;&ensp;\n        </div></center>\n    </div>\n    </center>'.repeat(8))
 
     setTimeout(() => {
         showTexts(index + 1);
@@ -143,7 +144,7 @@ function showTexts(index) {
 
 
 window.onload = () => {
-    showTexts(0);
+    showTexts(0)
     setTimeout(() => {
         showBoxes()
     }, 10000)
