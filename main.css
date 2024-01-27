@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url('bg.gif');
+    background-image: url('images/bg.gif');
     background-repeat: no-repeat!important;
     background-size: cover;
     background-position: center;
@@ -83,11 +83,15 @@ body {
     width: 60px;
 }
 .pimg {
-    width: 53%;
+    width: 50vh;
+    max-width: 60%;
 }
 
 a {
     color: white;
+}
+table{
+    width: 100%;
 }
 
 @media screen and (min-width: 924px) {
