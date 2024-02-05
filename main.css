@@ -78,6 +78,20 @@ body {
 .simg {
     width: 30px;
     vertical-align: middle;
+
+}
+.simg:hover , .plimg:hover , .pimg:hover , #pfp:hover{
+	-webkit-filter: drop-shadow(2px 2px 0 white)
+			drop-shadow(-2px 2px 0 white)
+			drop-shadow(2px -2px 0 white)
+			drop-shadow(-2px -2px 0 white);
+
+	filter: grayscale(100%)
+			drop-shadow(2px 2px 0 white)
+			drop-shadow(-2px 2px 0 white)
+			drop-shadow(2px -2px 0 white)
+			drop-shadow(-2px -2px 0 white);
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
 }
 .plimg {
     width: 60px;
@@ -90,6 +104,10 @@ body {
 a {
     color: white;
 }
+a:hover {
+    color: #2814af;
+}
+
 table{
     width: 100%;
 }
