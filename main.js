@@ -31,7 +31,7 @@ function showBoxesElements () {
         ['autotype:Github','#social > a:nth-child(3)'],
         ['autotype:Instagram','#social > a:nth-child(5)'],
         ['autotype:Telegram','#social > a:nth-child(7)'],
-        ['autotype:X','#social > a:nth-child(9)'],
+        //['autotype:X','#social > a:nth-child(9)'],
         // Big Box
         ['<div class="text"> <h2></h2> </div>','#big-sub1'],
         ['autotype:> Programming Language i Have', '#big-sub1 > div:nth-child(1) > h2:nth-child(1)'],
@@ -78,9 +78,12 @@ function showBoxesElements () {
                     autoTyping(elements[idx][1],elements[idx][0].slice(9),60)
             }
             else {
+				console.log('1')
                 if (document.querySelector(elements[idx][1]).innerHTML.includes(" <br>  Loading ... ") ) {
+					console.log('2')
                     document.querySelector(elements[idx][1]).innerHTML = ' '
                 }
+				console.log('3')
                 document.querySelector(elements[idx][1]).insertAdjacentHTML('beforeend', elements[idx][0])
             }
 
