@@ -1,0 +1,617 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #02070b, #05080d);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ==================================
+   Scroll Progress Bar
+   ================================== */
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #4db8ff, #ffffff);
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 0 2px 2px 0;
+    will-change: width;
+}
+
+/* ==================================
+   Social Links (Fixed Bottom Left)
+   ================================== */
+.social-links {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #4db8ff; /* Beautiful accent color matching dark theme */
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(77, 184, 255, 0.2);
+    border-color: rgba(77, 184, 255, 0.3);
+}
+
+/* ==================================
+   Hero Section
+   ================================== */
+   
+/* Controller container for the scroll height */
+.hero-scroll-container {
+    height: 350vh; /* Giving enough scroll area for the animation + freeze frame */
+    position: relative;
+    width: 100%;
+}
+
+/* The portion that stays pinned to the screen */
+.sticky-hero {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Pin the image to the bottom */
+    align-items: center;
+}
+
+/* Centered user image */
+.hero-img {
+    position: relative;
+    z-index: 10;
+    max-height: 85vh; /* Fits comfortably on screen */
+    max-width: 90vw;
+    object-fit: contain;
+    /* Soft shadow to separate from background and text glow */
+    filter: drop-shadow(0 -10px 25px rgba(0,0,0,0.5));
+}
+
+/* Glowing text behind the user */
+.hero-text {
+    position: absolute;
+    z-index: 5; /* Behind the image */
+    text-align: center;
+    bottom: 30%; /* Starting position slightly below center */
+    width: 100%;
+    padding: 0 20px;
+    
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    
+    /* Animation initial states (handled by JS) */
+    opacity: 0;
+    transform: translateY(10vh) scale(0.9);
+    filter: blur(10px); /* Start slightly blurred */
+    
+    /* Creating a glassy gradient text effect */
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==================================
+   Timeline Section
+   ================================== */
+.timeline-section {
+    height: 400vh; /* scrollable distance for horizontal track */
+    position: relative;
+    background: #02070b;
+    z-index: 20;
+}
+
+.timeline-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-title {
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(2rem, 5vw, 4rem);
+    background: linear-gradient(90deg, #4db8ff, #b377ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 10;
+    letter-spacing: 2px;
+}
+
+.timeline-track {
+    --card-width: min(400px, 80vw);
+    display: flex;
+    align-items: center;
+    gap: 15vw; /* space between cards */
+    padding: 0 calc(50vw - (var(--card-width) / 2)); /* precise padding logic */
+    will-change: transform;
+    height: 100%;
+    position: relative;
+}
+
+/* The horizontal line */
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.timeline-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20vw;
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+    animation: slideLine 3s infinite linear;
+    filter: blur(2px);
+}
+
+@keyframes slideLine {
+    0% { left: -20vw; }
+    100% { left: 100%; }
+}
+
+.timeline-item {
+    position: relative;
+    z-index: 1;
+    width: var(--card-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+@media (min-width: 769px) {
+    .timeline-item {
+        margin-top: 8vh; /* Push items down on desktop to ensure spacing from title */
+    }
+}
+
+.timeline-date {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.5);
+    background: #02070b;
+    padding: 5px 25px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease-out;
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.1s ease-out;
+}
+
+.timeline-content img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    filter: grayscale(40%) brightness(0.8);
+    transition: 0.4s ease;
+}
+
+.timeline-item:hover .timeline-content img {
+    filter: grayscale(0%) brightness(1.1);
+}
+
+.timeline-text {
+    padding: 25px;
+    text-align: right;
+}
+
+.timeline-text h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.timeline-text p {
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Removed timeline-spacer as it is no longer needed */
+
+/* ==================================
+   Brain / Mindset Section
+   ================================== */
+.brain-section {
+    position: relative;
+    height: 700vh; /* Giving plenty of scroll space for slow, cinematic animations */
+    background: #02070b;
+    z-index: 30;
+}
+
+.brain-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brain-title {
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(2rem, 5vw, 4rem);
+    background: linear-gradient(90deg, #4db8ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 50;
+    letter-spacing: 2px;
+}
+
+.symbols-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.brain-symbol-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    will-change: transform, opacity;
+    z-index: 10;
+}
+
+@keyframes floatSymbol {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(15deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.brain-symbol {
+    display: block;
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.15);
+    animation: floatSymbol 4s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px transparent);
+}
+
+.brain-center {
+    position: absolute;
+    z-index: 20;
+    width: clamp(250px, 40vw, 400px);
+    height: clamp(250px, 40vw, 400px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.5);
+    border-radius: 50%;
+    will-change: transform, opacity, filter, box-shadow;
+}
+
+@keyframes brainLevitate {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-15px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.brain-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+    animation: brainLevitate 6s infinite ease-in-out;
+}
+
+.labels-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 25;
+}
+
+.brain-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(2, 7, 11, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    max-width: 90vw;
+    will-change: transform, opacity;
+}
+
+.label-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6));
+    transform-origin: left center;
+    z-index: -1;
+}
+
+.label-line::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #4db8ff, 0 0 15px #fff;
+}
+
+.brain-label img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.brain-label span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* ==================================
+   Responsive Tweaks
+   ================================== */
+@media (max-width: 768px) {
+    .social-links {
+        left: 20px;
+        bottom: 20px;
+        gap: 10px;
+    }
+    
+    .social-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    /* Make image essentially double sized visually per user request */
+    .hero-img {
+        transform: scale(2);
+        transform-origin: bottom center;
+    }
+}
+
+/* ==================================
+   About / Unconventional Section
+   ================================== */
+.about-section {
+    position: relative;
+    padding: 15vh 20px 0 20px; /* Removed bottom padding */
+    background: #02070b;
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+}
+
+.about-container {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "image title"
+        "image text";
+    gap: 20px 80px;
+    align-items: center;
+}
+
+.about-image-wrapper {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-self: end; /* Anchor to bottom */
+}
+
+.about-img {
+    width: auto;
+    max-width: 700px;
+    height: auto;
+    max-height: 85vh; /* Very large to look like he's standing in the room */
+    display: block;
+    filter: grayscale(100%) contrast(1.1) brightness(0.85);
+    transition: filter 0.5s ease, transform 0.5s ease;
+    /* Removed box, radius, and background shadows */
+}
+
+.about-img:hover {
+    filter: grayscale(60%) contrast(1.15) brightness(1);
+    transform: translateY(-5px);
+}
+
+.about-title {
+    grid-area: title;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-style: italic;
+    color: #ffffff;
+    line-height: 1.1;
+    align-self: end;
+    /* Clean white subtitle glow */
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.about-text {
+    grid-area: text;
+    align-self: start;
+    padding-top: 10px;
+    padding-bottom: 10vh; /* Keep text centered while image touches the floor */
+}
+
+.about-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 24px;
+}
+
+.about-text .highlight {
+    color: #4db8ff;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.github-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.github-cta-btn i {
+    font-size: 1.4rem;
+    transition: transform 0.4s ease;
+}
+
+.github-cta-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4db8ff;
+    color: #4db8ff;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(77, 184, 255, 0.2);
+}
+
+.github-cta-btn:hover i {
+    transform: rotate(12deg) scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title"
+            "image"
+            "text";
+        gap: 35px;
+        text-align: center;
+    }
+    
+    .about-title {
+        align-self: center;
+        font-size: 2.8rem;
+    }
+
+    .about-img {
+        max-width: 85vw;
+    }
+
+    .about-text {
+        text-align: left;
+    }
+    
+    .about-text p {
+        font-size: 1.15rem;
+    }
+}

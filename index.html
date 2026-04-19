@@ -1,25 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<html lang="en" dir="ltr">
 
-    <title>Mohammed Motahher - OS Portfolio</title>
-    <meta property="og:title" content="Mohammed Motahher - OS Portfolio" />
-    <meta property="og:description" content="Personal portfolio of Mohammed Motahher, a Windows 11 inspired experience." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mohammed Motahher - OS Portfolio" />
-    <meta name="twitter:description" content="Personal portfolio of Mohammed Motahher, a Windows 11 inspired experience." />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/e/e6/Windows_11_logo.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BTiPlja_.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BQLm9Z8B.css">
-  </head>
-  <body class="dark">
-    <div id="root"></div>
-  </body>
+<body>
+    <!-- Top Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollBar"></div>
+
+    <!-- Hero Section (Scroll Controlled) -->
+    <section class="hero-scroll-container">
+        <!-- Sticky Wrapper allows pinned content while scrolling -->
+        <div class="sticky-hero">
+            <!-- Social Links: Fixed at bottom left of the section -->
+            <div class="social-links">
+                <a href="https://github.com/mohdmot" target="_blank" class="social-btn" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/mohdmot/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-text" id="heroText">Hello , I am<br> Mohammed</h1>
+                <!-- We use the image the user uploaded. Make sure to maintain its aspect ratio -->
+                <img src="static/img/me.png" alt="Mohammed" class="hero-img" id="heroImg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section" id="timeline">
+        <!-- Sticky wrapper for horizontal scrolling -->
+        <div class="timeline-sticky">
+            <div class="timeline-track">
+                <!-- The continuous connecting line -->
+                <div class="timeline-line"></div>
+
+                <!-- Card 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2018</div>
+                    <div class="timeline-content">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop"
+                            alt="Who am I">
+                        <div class="timeline-text" style="text-align: left;">
+                            <h3>Who am I?</h3>
+                            <p>The true beginning and the first spark of passion for discovering the programming world
+                                and building ideas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2020</div>
+                    <div class="timeline-content">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"
+                            alt="The Spark">
+                        <div class="timeline-text" style="text-align: left;">
+                            <h3>The Spark</h3>
+                            <p>Launching my first real project, leveling up my problem-solving skills and user interface
+                                design.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop"
+                            alt="Professional Work">
+                        <div class="timeline-text" style="text-align: left;">
+                            <h3>Professional Environment</h3>
+                            <p>Joining a professional work environment and participating in building massive, highly
+                                impactful applications.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop"
+                            alt="Present">
+                        <div class="timeline-text" style="text-align: left;">
+                            <h3>Present & Mastery</h3>
+                            <p>Mastering software architecture and pushing the limits of building complete, professional
+                                applications.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Mindset / Brain Section -->
+    <section class="brain-section" id="brainSection">
+        <div class="brain-sticky">
+            <!-- Symbols Container (Populated dynamically by JS) -->
+            <div class="symbols-container" id="symbolsContainer"></div>
+
+            <!-- Central Brain Image -->
+            <div class="brain-center" id="brainCenter">
+                <model-viewer id="brainModel" src="static/3d/brain.glb" camera-controls="false"
+                    interaction-prompt="none" disable-zoom disable-pan shadow-intensity="0" exposure="1.2"
+                    environment-image="legacy"
+                    style="width: 100%; height: 100%; animation: brainLevitate 6s infinite ease-in-out; pointer-events: none;">
+                </model-viewer>
+            </div>
+
+            <!-- Labels Container (Pops out from the brain) -->
+            <div class="labels-container" id="labelsContainer">
+                <div class="brain-label">
+                    <img src="/static/img/icons/python.png" alt="Python">
+                    <span>AI & Automation in Python</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/C.png" alt="C">
+                    <span>C Programming</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/flask.png" alt="Flask">
+                    <span>Backend Skills using Flask</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/github.png" alt="DevOps">
+                    <span>DevOps & Cloud</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/html.png" alt="HTML">
+                    <span>Frontend using HTML/CSS</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/js.png" alt="JS">
+                    <span>JavaScript</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/arduino.svg" alt="Arduino">
+                    <span>Microcontrollers</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/php.svg" alt="PHP">
+                    <span>FullStack using PHP</span>
+                </div>
+                <div class="brain-label">
+                    <img src="/static/img/icons/ubuntu.png" alt="Ubuntu">
+                    <span>Linux server management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-image-wrapper">
+                <img src="static/img/me2.png" alt="Mohammed Experimental" class="about-img">
+            </div>
+            <h2 class="about-title">The Unconventional<br>Mind</h2>
+            <div class="about-text">
+                <p>I build things that <span class="highlight">shouldn't</span> work… but somehow do. Obsessed with
+                    coding, weird experiments, and basically anything that breaks the rules of what's considered
+                    "normal".</p>
+                <p>Always learning. Always shipping. Always trying something crazy.</p>
+                <a href="https://github.com/mohdmot" target="_blank" class="github-cta-btn">
+                    <i class="fab fa-github"></i> Visit my Github
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lenis@1.1.2/dist/lenis.min.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
 </html>
