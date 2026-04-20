@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lenis for buttery smooth scrolling
     const lenis = new Lenis({
-        duration: 1.2,
+        duration: 3.5, // Even longer duration for an extremely slow catch-up
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-        smooth: true,
+        smoothWheel: true,
+        wheelMultiplier: 0.2, // Extremely low multiplier: one scroll tick moves very little
+        lerp: 0.01, // Near-minimum lerp for maximum 'float' and slow response
     });
 
     function raf(time) {
@@ -78,6 +80,38 @@ document.addEventListener('DOMContentLoaded', () => {
         lbl._randOuterRad = Math.random(); 
     });
 
+    // Layout Cache - Pre-calculate to avoid layout thrashing during scroll
+    let layoutValues = {
+        hero: { top: 0, height: 0 },
+        timeline: { top: 0, height: 0, trackWidth: 0 },
+        brain: { top: 0, height: 0 },
+        docHeight: 0,
+        timelineItemsX: [] // Store initial relative centers
+    };
+
+    function updateLayoutCache() {
+        layoutValues.hero.top = heroScrollContainer?.offsetTop || 0;
+        layoutValues.hero.height = heroScrollContainer?.offsetHeight || 0;
+        
+        layoutValues.timeline.top = timelineSection?.offsetTop || 0;
+        layoutValues.timeline.height = timelineSection?.offsetHeight || 0;
+        layoutValues.timeline.trackWidth = timelineTrack?.scrollWidth || 0;
+        
+        layoutValues.brain.top = brainSection?.offsetTop || 0;
+        layoutValues.brain.height = brainSection?.offsetHeight || 0;
+        
+        layoutValues.docHeight = document.body.scrollHeight;
+
+        // Cache timeline item offsets relative to the track
+        layoutValues.timelineItemsX = [];
+        timelineItems.forEach(item => {
+            layoutValues.timelineItemsX.push(item.offsetLeft + (item.offsetWidth / 2));
+        });
+    }
+
+    // Initial cache populate
+    updateLayoutCache();
+
     // Trigger an initial call to set initial states
     handleScroll();
 
@@ -87,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // We can also trigger calculation on resize to fix any layout shifts
     window.addEventListener('resize', () => {
+        updateLayoutCache();
         handleScroll();
     });
 
@@ -95,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update Top Scroll Progress Bar
         if (scrollBar) {
-            let totalDocHeight = document.body.scrollHeight - window.innerHeight;
+            let totalDocHeight = layoutValues.docHeight - window.innerHeight;
             let scrollPercent = (scrollY / totalDocHeight) * 100;
             scrollPercent = Math.max(0, Math.min(100, scrollPercent));
             scrollBar.style.width = scrollPercent + '%';
@@ -105,9 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. HERO SECTION LOGIC
         // ==========================================
         if (heroScrollContainer && heroText) {
-            let containerTop = heroScrollContainer.offsetTop;
+            let containerTop = layoutValues.hero.top;
             // The distance the user can scroll before leaving the container
-            let scrollableDistance = heroScrollContainer.offsetHeight - window.innerHeight;
+            let scrollableDistance = layoutValues.hero.height - window.innerHeight;
 
             let rawProgress = (scrollY - containerTop) / scrollableDistance;
 
@@ -165,8 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. TIMELINE SECTION LOGIC
         // ==========================================
         if (timelineSection && timelineTrack) {
-            let tTop = timelineSection.offsetTop;
-            let tScrollable = timelineSection.offsetHeight - window.innerHeight;
+            let tTop = layoutValues.timeline.top;
+            let tScrollable = layoutValues.timeline.height - window.innerHeight;
             let tProgress = (scrollY - tTop) / tScrollable;
 
             // Only animate if the section is in or near the viewport
@@ -176,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Track max translation distance based on its overflowing width
                 // Calculate width of the track bounds minus the viewport width
-                let trackWidth = timelineTrack.scrollWidth;
+                let trackWidth = layoutValues.timeline.trackWidth;
                 let maxTranslate = trackWidth - window.innerWidth;
                 
                 // Actually translate the track based on progress
@@ -186,9 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Animate timeline cards based on their position relative to the center of the screen
                 const viewCenter = window.innerWidth / 2;
 
-                timelineItems.forEach((item) => {
-                    let rect = item.getBoundingClientRect();
-                    let itemCenter = rect.left + (rect.width / 2);
+                timelineItems.forEach((item, i) => {
+                    // Calculated Center: Initial relative position + current track translation
+                    let itemCenter = layoutValues.timelineItemsX[i] + currentTranslateX;
                     
                     // absolute distance of this item's center from the screen's center
                     let dist = Math.abs(viewCenter - itemCenter);
@@ -244,8 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. BRAIN SECTION LOGIC
         // ==========================================
         if (brainSection && brainCenter && symbolsContainer) {
-            let bTop = brainSection.offsetTop;
-            let bScrollable = brainSection.offsetHeight - window.innerHeight;
+            let bTop = layoutValues.brain.top;
+            let bScrollable = layoutValues.brain.height - window.innerHeight;
             let bProgress = (scrollY - bTop) / bScrollable;
 
             if (bProgress > -0.2 && bProgress < 1.2) {

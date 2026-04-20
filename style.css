@@ -147,7 +147,7 @@ h1, h2, h3, h4, h5, h6 {
    Timeline Section
    ================================== */
 .timeline-section {
-    height: 400vh; /* scrollable distance for horizontal track */
+    height: 1500vh; /* Extremely long distance to make horizontal scroll feel very slow */
     position: relative;
     background: #02070b;
     z-index: 20;
@@ -292,7 +292,7 @@ h1, h2, h3, h4, h5, h6 {
    ================================== */
 .brain-section {
     position: relative;
-    height: 700vh; /* Giving plenty of scroll space for slow, cinematic animations */
+    height: 3000vh; /* Massive scroll distance for the brain section to ensure labels appear very slowly */
     background: #02070b;
     z-index: 30;
 }
