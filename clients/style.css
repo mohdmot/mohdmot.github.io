@@ -71,6 +71,10 @@ h1, h2, h3, h4 {
     font-weight: 700;
 }
 
+.reviewer-name {
+	font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+}
+
 .hidden {
     display: none !important;
 }
