@@ -1,11 +1,61 @@
+// WEBSITE_MODE can be set to 'dark', 'light', or 'auto' (detect system theme preference)
+const WEBSITE_MODE = 'auto'; 
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Determine initial theme: check localStorage first, then system preference
+    let initialTheme = localStorage.getItem('portfolio-theme');
+    if (!initialTheme) {
+        if (WEBSITE_MODE === 'auto') {
+            const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            initialTheme = prefersLight ? 'light' : 'dark';
+        } else {
+            initialTheme = WEBSITE_MODE;
+        }
+    }
+
+    // Apply initial theme class
+    if (initialTheme === 'light') {
+        document.body.classList.add('light-mode');
+    } else {
+        document.body.classList.remove('light-mode');
+    }
+
+    // Toggle Theme Button Initialization & Click Listener
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (themeToggleBtn) {
+        const themeIcon = themeToggleBtn.querySelector('i');
+        if (document.body.classList.contains('light-mode')) {
+            themeIcon.className = 'fa-solid fa-moon';
+        } else {
+            themeIcon.className = 'fa-solid fa-sun';
+        }
+
+        themeToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.body.classList.toggle('light-mode');
+            
+            // Toggle icon & persist theme
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.className = 'fa-solid fa-moon';
+                localStorage.setItem('portfolio-theme', 'light');
+            } else {
+                themeIcon.className = 'fa-solid fa-sun';
+                localStorage.setItem('portfolio-theme', 'dark');
+            }
+            
+            // Instantly update the layout and recalculate scroll frames
+            updateLayoutCache();
+            handleScroll();
+        });
+    }
+
     // Initialize Lenis for buttery smooth scrolling
     const lenis = new Lenis({
-        duration: 3.5, // Even longer duration for an extremely slow catch-up
+        duration: 0.6, // Snappy and fast scroll transition
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
         smoothWheel: true,
-        wheelMultiplier: 0.2, // Extremely low multiplier: one scroll tick moves very little
-        lerp: 0.01, // Near-minimum lerp for maximum 'float' and slow response
+        wheelMultiplier: 2.2, // High multiplier to navigate extremely tall sections (30,000px+) easily
+        lerp: 0.2, // Fast, instant catch-up responsiveness
     });
 
     function raf(time) {
@@ -13,6 +63,95 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+
+    // Auto Scroll Elements & Logic
+    const autoScrollBtn = document.getElementById('autoScrollBtn');
+    let isAutoScrolling = false;
+    let autoScrollAnimationId = null;
+    let lastTime = null;
+    const pixelsPerSecond = 750; // High speed of 750px/s to scroll through tall sections beautifully
+
+    function startAutoScroll() {
+        if (isAutoScrolling) return;
+        isAutoScrolling = true;
+        
+        autoScrollBtn.classList.remove('pulsing');
+        autoScrollBtn.classList.add('scrolling');
+        autoScrollBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        autoScrollBtn.setAttribute('title', 'Pause Auto Scroll');
+
+        lastTime = null; // Reset time tracking
+
+        function scrollStep(timestamp) {
+            if (!isAutoScrolling) return;
+            if (!lastTime) lastTime = timestamp;
+            
+            let elapsed = (timestamp - lastTime) / 1000; // convert to seconds
+            lastTime = timestamp;
+            
+            // Limit elapsed to prevent huge jumps if browser tab goes inactive
+            if (elapsed > 0.1) elapsed = 0.1;
+            
+            let currentScroll = window.scrollY;
+            let maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            
+            if (currentScroll >= maxScroll - 1) {
+                stopAutoScroll();
+                return;
+            }
+            
+            let nextScroll = currentScroll + (pixelsPerSecond * elapsed);
+            lenis.scrollTo(nextScroll, { immediate: true });
+            
+            autoScrollAnimationId = requestAnimationFrame(scrollStep);
+        }
+        
+        // Listen for user manual interactions to pause auto-scroll
+        window.addEventListener('wheel', handleUserScroll, { passive: true });
+        window.addEventListener('touchmove', handleUserScroll, { passive: true });
+        window.addEventListener('mousedown', handleUserScroll);
+        
+        autoScrollAnimationId = requestAnimationFrame(scrollStep);
+    }
+
+    function stopAutoScroll() {
+        if (!isAutoScrolling) return;
+        isAutoScrolling = false;
+        
+        if (autoScrollAnimationId) {
+            cancelAnimationFrame(autoScrollAnimationId);
+            autoScrollAnimationId = null;
+        }
+        
+        autoScrollBtn.classList.remove('scrolling');
+        autoScrollBtn.classList.add('pulsing');
+        autoScrollBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        autoScrollBtn.setAttribute('title', 'Start Auto Scroll');
+
+        // Clean up listeners
+        window.removeEventListener('wheel', handleUserScroll);
+        window.removeEventListener('touchmove', handleUserScroll);
+        window.removeEventListener('mousedown', handleUserScroll);
+    }
+
+    function handleUserScroll(e) {
+        // If the user interacted with the button itself, don't stop the scroll
+        if (e && e.type === 'mousedown' && autoScrollBtn && autoScrollBtn.contains(e.target)) {
+            return;
+        }
+        stopAutoScroll();
+    }
+
+    if (autoScrollBtn) {
+        autoScrollBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isAutoScrolling) {
+                stopAutoScroll();
+            } else {
+                startAutoScroll();
+            }
+        });
+    }
 
     // Common Elements
     const scrollBar = document.getElementById('scrollBar');
@@ -184,16 +323,24 @@ document.addEventListener('DOMContentLoaded', () => {
             heroText.style.opacity = opacity;
             heroText.style.transform = `translateY(${transY}vh) scale(${scale})`;
 
-            // Apply pure white color with varying alpha, breaking out of background-clip
+            // Apply pure color with varying alpha
             heroText.style.background = 'none';
             heroText.style.webkitTextFillColor = 'unset';
-            heroText.style.color = `rgba(255, 255, 255, ${0.4 + (progress * 0.6)})`;
-
-            // Apply text shadow
-            heroText.style.textShadow = `
-                0 0 ${glowSpread1}px rgba(255, 255, 255, ${glowOpacity1}), 
-                0 0 ${glowSpread2}px rgba(77, 184, 255, ${glowOpacity2})
-            `;
+            
+            let isLight = document.body.classList.contains('light-mode');
+            if (isLight) {
+                heroText.style.color = `rgba(15, 23, 42, ${0.4 + (progress * 0.6)})`;
+                heroText.style.textShadow = `
+                    0 0 ${glowSpread1}px rgba(15, 23, 42, ${glowOpacity1 * 0.1}), 
+                    0 0 ${glowSpread2}px rgba(37, 99, 235, ${glowOpacity2 * 0.15})
+                `;
+            } else {
+                heroText.style.color = `rgba(255, 255, 255, ${0.4 + (progress * 0.6)})`;
+                heroText.style.textShadow = `
+                    0 0 ${glowSpread1}px rgba(255, 255, 255, ${glowOpacity1}), 
+                    0 0 ${glowSpread2}px rgba(77, 184, 255, ${glowOpacity2})
+                `;
+            }
         }
 
         // ==========================================
@@ -254,22 +401,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     let shadowX = normDist * -20; // Reverse direction of dist for natural shadow falloff
 
                     // If it is in the absolute center, apply standard glowing box shadow!
+                    let isLight = document.body.classList.contains('light-mode');
                     if (ratio > 0.85) {
                         let glowPower = (ratio - 0.85) / 0.15; // normalize from 0.85 -> 1.0 to 0 -> 1.0
-                        // Dual layer shadow: strong white core, soft icy blue outer (exactly like the text)
-                        item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 8px 40px rgba(255, 255, 255, ${0.1 + (glowPower * 0.3)}), ${shadowX}px 8px 60px rgba(77, 184, 255, ${0.1 + (glowPower * 0.2)})`;
-                        item.querySelector('.timeline-content').style.borderColor = `rgba(255, 255, 255, ${0.2 + (glowPower * 0.4)})`;
-                        item.querySelector('.timeline-date').style.color = '#02070b';
-                        item.querySelector('.timeline-date').style.backgroundColor = '#fff';
-                        item.querySelector('.timeline-date').style.boxShadow = `0 0 20px rgba(255, 255, 255, ${0.3 + (glowPower * 0.5)})`;
-                        item.querySelector('.timeline-date').style.borderColor = `rgba(255, 255, 255, ${0.5 + (glowPower * 0.5)})`;
+                        if (isLight) {
+                            item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 12px 40px rgba(37, 99, 235, ${0.08 + (glowPower * 0.1)}), ${shadowX}px 8px 60px rgba(0, 0, 0, 0.05)`;
+                            item.querySelector('.timeline-content').style.borderColor = `rgba(37, 99, 235, ${0.2 + (glowPower * 0.3)})`;
+                            item.querySelector('.timeline-date').style.color = '#fff';
+                            item.querySelector('.timeline-date').style.backgroundColor = '#2563eb';
+                            item.querySelector('.timeline-date').style.boxShadow = `0 0 20px rgba(37, 99, 235, ${0.2 + (glowPower * 0.3)})`;
+                            item.querySelector('.timeline-date').style.borderColor = `rgba(37, 99, 235, ${0.5 + (glowPower * 0.5)})`;
+                        } else {
+                            item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 8px 40px rgba(255, 255, 255, ${0.1 + (glowPower * 0.3)}), ${shadowX}px 8px 60px rgba(77, 184, 255, ${0.1 + (glowPower * 0.2)})`;
+                            item.querySelector('.timeline-content').style.borderColor = `rgba(255, 255, 255, ${0.2 + (glowPower * 0.4)})`;
+                            item.querySelector('.timeline-date').style.color = '#02070b';
+                            item.querySelector('.timeline-date').style.backgroundColor = '#fff';
+                            item.querySelector('.timeline-date').style.boxShadow = `0 0 20px rgba(255, 255, 255, ${0.3 + (glowPower * 0.5)})`;
+                            item.querySelector('.timeline-date').style.borderColor = `rgba(255, 255, 255, ${0.5 + (glowPower * 0.5)})`;
+                        }
                     } else {
-                        item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 8px 32px rgba(0, 0, 0, 0.5)`;
-                        item.querySelector('.timeline-content').style.borderColor = `rgba(255, 255, 255, 0.05)`;
-                        item.querySelector('.timeline-date').style.color = 'rgba(255, 255, 255, 0.5)';
-                        item.querySelector('.timeline-date').style.backgroundColor = '#02070b';
-                        item.querySelector('.timeline-date').style.boxShadow = 'none';
-                        item.querySelector('.timeline-date').style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        if (isLight) {
+                            item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 8px 30px rgba(0, 0, 0, 0.05)`;
+                            item.querySelector('.timeline-content').style.borderColor = `rgba(0, 0, 0, 0.06)`;
+                            item.querySelector('.timeline-date').style.color = 'rgba(30, 41, 59, 0.6)';
+                            item.querySelector('.timeline-date').style.backgroundColor = '#ffffff';
+                            item.querySelector('.timeline-date').style.boxShadow = 'none';
+                            item.querySelector('.timeline-date').style.borderColor = 'rgba(0, 0, 0, 0.08)';
+                        } else {
+                            item.querySelector('.timeline-content').style.boxShadow = `${shadowX}px 8px 32px rgba(0, 0, 0, 0.5)`;
+                            item.querySelector('.timeline-content').style.borderColor = `rgba(255, 255, 255, 0.05)`;
+                            item.querySelector('.timeline-date').style.color = 'rgba(255, 255, 255, 0.5)';
+                            item.querySelector('.timeline-date').style.backgroundColor = '#02070b';
+                            item.querySelector('.timeline-date').style.boxShadow = 'none';
+                            item.querySelector('.timeline-date').style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                        }
                     }
                 });
             }
@@ -320,13 +485,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.wrapper.style.transform = `translate(calc(-50% + ${currX}px), calc(-50% + ${currY}px)) scale(${Math.max(0, sScale)})`;
                     item.wrapper.style.opacity = symOp;
                     
+                    let isLight = document.body.classList.contains('light-mode');
                     if (suckAction > 0 && suckAction < 1) {
                         let glowPower = suckAction;
-                        item.el.style.color = `rgba(255, 255, 255, ${0.15 + glowPower * 0.85})`;
-                        // White glow requested by user
-                        item.el.style.filter = `drop-shadow(0 0 ${10 + glowPower*20}px rgba(255, 255, 255, ${glowPower}))`;
+                        if (isLight) {
+                            item.el.style.color = `rgba(37, 99, 235, ${0.15 + glowPower * 0.85})`;
+                            item.el.style.filter = `drop-shadow(0 0 ${10 + glowPower*20}px rgba(37, 99, 235, ${glowPower}))`;
+                        } else {
+                            item.el.style.color = `rgba(255, 255, 255, ${0.15 + glowPower * 0.85})`;
+                            item.el.style.filter = `drop-shadow(0 0 ${10 + glowPower*20}px rgba(255, 255, 255, ${glowPower}))`;
+                        }
                     } else {
-                        item.el.style.color = `rgba(255, 255, 255, 0.15)`;
+                        if (isLight) {
+                            item.el.style.color = `rgba(15, 23, 42, 0.08)`;
+                        } else {
+                            item.el.style.color = `rgba(255, 255, 255, 0.15)`;
+                        }
                         item.el.style.filter = `drop-shadow(0 0 10px transparent)`;
                     }
                 });
@@ -335,8 +509,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     pulsePower = (suckAction - 0.9) * 10;
                 }
                 
-                // White glow for brain - Reduced as per user request
-                brainCenter.style.filter = `drop-shadow(0 0 ${10 + pulsePower * 20}px rgba(255, 255, 255, ${0.1 + pulsePower*0.4}))`;
+                let isLightGlow = document.body.classList.contains('light-mode');
+                if (isLightGlow) {
+                    brainCenter.style.filter = `drop-shadow(0 0 ${10 + pulsePower * 20}px rgba(37, 99, 235, ${0.1 + pulsePower*0.3}))`;
+                } else {
+                    brainCenter.style.filter = `drop-shadow(0 0 ${10 + pulsePower * 20}px rgba(255, 255, 255, ${0.1 + pulsePower*0.4}))`;
+                }
 
                 // 3. Labels Pop-out in Batches (0.4 to 1.0)
                 let labelPhase = (clampedProgress - 0.4) / 0.6;

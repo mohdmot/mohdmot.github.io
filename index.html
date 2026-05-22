@@ -19,14 +19,27 @@
     <section class="hero-scroll-container">
         <!-- Sticky Wrapper allows pinned content while scrolling -->
         <div class="sticky-hero">
+            <!-- Theme Toggle Button: Top Right -->
+            <div class="theme-toggle-container">
+                <button id="themeToggleBtn" class="theme-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+            </div>
+            
             <!-- Social Links: Fixed at bottom left of the section -->
             <div class="social-links">
-                <a href="https://github.com/mohdmot" target="_blank" class="social-btn" aria-label="GitHub">
+                <a href="https://github.com/mohdmot" target="_blank" class="social-btn github" aria-label="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://linkedin.com/in/mohdmot/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/mohdmot/" target="_blank" class="social-btn linkedin" aria-label="LinkedIn">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
+            </div>
+            <!-- Auto Scroll Play Button: Only on Desktop (bottom right) -->
+            <div class="auto-scroll-container">
+                <button id="autoScrollBtn" class="scroll-btn pulsing" title="Auto Scroll">
+                    <i class="fa-solid fa-play"></i>
+                </button>
             </div>
             <div class="hero-content">
                 <h1 class="hero-text" id="heroText">Hello , I am<br> Mohammed</h1>
@@ -121,6 +134,21 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <!-- Reviews Call-to-Action Section -->
+    <section class="reviews-cta-section" id="reviewsCta">
+        <div class="reviews-cta-container">
+            <h2 class="reviews-cta-title">What Did They Said?</h2>
+            <p class="reviews-cta-desc">
+                Real feedback from real people I've worked with.
+                No filters, no edits — just honest words about real experiences.
+            </p>
+            <a href="clients/index.html" class="reviews-cta-btn">
+                Read the Reviews
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
     </section>
 

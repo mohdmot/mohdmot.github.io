@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Mohammed's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/ffffff/brain.png">
+    <!-- FontAwesome for essential interface navigation icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Background Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollBar"></div>
+
+    <!-- Main Content Container (Visible instantly, no artificial loading intros) -->
+    <div id="mainContent" class="main-content">
+        <!-- Floating Navigation Header -->
+        <header class="clients-header">
+            <a href="../index.html" class="back-btn" title="Back to Portfolio">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back</span>
+            </a>
+            <button id="themeToggleBtn" class="theme-btn" title="Toggle Theme">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="reviews-hero">
+            <h1 class="hero-title" id="mainTitle">What did they said?</h1>
+            <p class="hero-desc">
+                If we have collaborated on a project, I would love to hear your thoughts.
+                Your feedback helps me refine my process and build better experiences.
+            </p>
+            <div class="cta-actions">
+                <button id="scrollToFormBtn" class="cta-primary-btn">
+                    Rate My Work
+                </button>
+            </div>
+        </section>
+
+        <!-- Core Feed Section -->
+        <main class="reviews-main">
+            <!-- Loading indicator -->
+            <div id="reviewsLoading" class="reviews-loading">
+                <div class="spinner"></div>
+                <p>Retrieving feedback from database...</p>
+            </div>
+            
+            <!-- Error message container -->
+            <div id="reviewsError" class="reviews-error hidden">
+                <p>Failed to connect to the reviews server. Please try again.</p>
+                <button id="retryBtn" class="retry-btn">Retry Connection</button>
+            </div>
+
+            <!-- Empty feed placeholder -->
+            <div id="reviewsEmpty" class="reviews-empty hidden">
+                <h3>No Reviews Yet</h3>
+                <p>Be the first one to share your experience working with me!</p>
+            </div>
+
+            <!-- Reviews Feed (Rendered as single column stream via script.js) -->
+            <div id="reviewsGrid" class="reviews-grid">
+                <!-- Populated dynamically via script.js -->
+            </div>
+
+            <!-- Inline Review Submission Form Section -->
+            <section id="addReviewSection" class="add-review-section">
+                <div class="form-container">
+                    <h2 class="form-section-title">Leave a Review</h2>
+                    
+                    <form id="reviewForm" enctype="multipart/form-data" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientName">Your Name</label>
+                                <input type="text" id="clientName" name="name" required placeholder="e.g., John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="projectField">Project / Field</label>
+                                <input type="text" id="projectField" name="project_field" required placeholder="e.g., Python Backend, Web App">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clientComment">Your Review</label>
+                            <textarea id="clientComment" name="comment" required rows="4" placeholder="Tell others what it was like collaborating with me..."></textarea>
+                        </div>
+
+                        <h3 class="ratings-section-title">Ratings (1 to 5)</h3>
+                        
+                        <div class="ratings-grid">
+                            <div class="rating-item">
+                                <span class="rating-label">Quality of Results</span>
+                                <div class="scalar-rating" data-criteria="quality">
+                                    <button type="button" class="scalar-btn" data-value="1">1</button>
+                                    <button type="button" class="scalar-btn" data-value="2">2</button>
+                                    <button type="button" class="scalar-btn" data-value="3">3</button>
+                                    <button type="button" class="scalar-btn" data-value="4">4</button>
+                                    <button type="button" class="scalar-btn" data-value="5">5</button>
+                                </div>
+                                <input type="hidden" name="quality" id="rating-quality" value="5">
+                            </div>
+                            
+                            <div class="rating-item">
+                                <span class="rating-label">Speed of Delivery</span>
+                                <div class="scalar-rating" data-criteria="speed">
+                                    <button type="button" class="scalar-btn" data-value="1">1</button>
+                                    <button type="button" class="scalar-btn" data-value="2">2</button>
+                                    <button type="button" class="scalar-btn" data-value="3">3</button>
+                                    <button type="button" class="scalar-btn" data-value="4">4</button>
+                                    <button type="button" class="scalar-btn" data-value="5">5</button>
+                                </div>
+                                <input type="hidden" name="speed" id="rating-speed" value="5">
+                            </div>
+                            
+                            <div class="rating-item">
+                                <span class="rating-label">Communication</span>
+                                <div class="scalar-rating" data-criteria="communication">
+                                    <button type="button" class="scalar-btn" data-value="1">1</button>
+                                    <button type="button" class="scalar-btn" data-value="2">2</button>
+                                    <button type="button" class="scalar-btn" data-value="3">3</button>
+                                    <button type="button" class="scalar-btn" data-value="4">4</button>
+                                    <button type="button" class="scalar-btn" data-value="5">5</button>
+                                </div>
+                                <input type="hidden" name="communication" id="rating-communication" value="5">
+                            </div>
+                            
+                            <div class="rating-item">
+                                <span class="rating-label">Pricing / Value</span>
+                                <div class="scalar-rating" data-criteria="price">
+                                    <button type="button" class="scalar-btn" data-value="1">1</button>
+                                    <button type="button" class="scalar-btn" data-value="2">2</button>
+                                    <button type="button" class="scalar-btn" data-value="3">3</button>
+                                    <button type="button" class="scalar-btn" data-value="4">4</button>
+                                    <button type="button" class="scalar-btn" data-value="5">5</button>
+                                </div>
+                                <input type="hidden" name="price" id="rating-price" value="5">
+                            </div>
+                        </div>
+
+                        <div class="form-group file-upload-group">
+                            <label>Project Images (Optional, Max 5)</label>
+                            <div class="drag-drop-area" id="dragDropArea">
+                                <p>Drag & drop images here or <span class="browse-link">browse files</span></p>
+                                <input type="file" id="imageInput" name="images" multiple accept="image/*" class="hidden">
+                            </div>
+                            <div class="image-previews-container" id="imagePreviews">
+                                <!-- Populated on file select by script.js -->
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Submit Review
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Fullscreen Lightbox Carousel for Card Galleries -->
+    <div id="lightboxModal" class="lightbox-overlay hidden">
+        <button class="lightbox-close-btn" aria-label="Close Lightbox"><i class="fa-solid fa-xmark"></i></button>
+        <button class="lightbox-nav-btn prev-btn" aria-label="Previous Image"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Full Screen Display">
+        </div>
+        <button class="lightbox-nav-btn next-btn" aria-label="Next Image"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Custom Toast Notifications Center -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

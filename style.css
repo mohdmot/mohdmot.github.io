@@ -69,11 +69,159 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .social-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Brand-specific Social buttons to make them pop creatively! */
+/* GitHub Button */
+.social-btn.github {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15), inset 0 0 8px rgba(255, 255, 255, 0.05);
+}
+.social-btn.github:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 8px 30px rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* LinkedIn Button */
+.social-btn.linkedin {
+    background: rgba(0, 119, 181, 0.1);
+    border: 1.5px solid rgba(0, 160, 220, 0.5);
+    color: #00a0dc; /* Vibrant LinkedIn brand cyan */
+    box-shadow: 0 0 15px rgba(0, 160, 220, 0.25), inset 0 0 8px rgba(0, 160, 220, 0.1);
+}
+.social-btn.linkedin:hover {
+    background: #0077b5;
+    border-color: #00a0dc;
+    color: #ffffff;
+    box-shadow: 0 0 25px rgba(0, 160, 220, 0.6), 0 8px 30px rgba(0, 119, 181, 0.35);
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* ==================================
+   Auto Scroll Button (Fixed Bottom Right)
+   ================================== */
+.auto-scroll-container {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    z-index: 100;
+}
+
+.scroll-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    outline: none;
+}
+
+.scroll-btn:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #4db8ff; /* Beautiful accent color matching dark theme */
+    color: #4db8ff;
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 10px 25px rgba(77, 184, 255, 0.2);
     border-color: rgba(77, 184, 255, 0.3);
+}
+
+/* Custom Pulse Animations */
+@keyframes autoScrollPulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(77, 184, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 12px rgba(77, 184, 255, 0);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(77, 184, 255, 0);
+    }
+}
+
+.scroll-btn.pulsing {
+    animation: autoScrollPulse 2s infinite;
+}
+
+.scroll-btn.scrolling {
+    animation: autoScrollPulse 1.2s infinite;
+    background: rgba(77, 184, 255, 0.1);
+    color: #4db8ff;
+    border-color: rgba(77, 184, 255, 0.3);
+}
+
+/* ==================================
+   Theme Toggle Button (Top Right)
+   ================================== */
+.theme-toggle-container {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 100;
+}
+
+.theme-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ffffff; /* Cool white instead of yellow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    outline: none;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1) rotate(360deg);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.35), 0 0 10px rgba(77, 184, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.theme-btn i {
+    transition: transform 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .auto-scroll-container {
+        right: 20px;
+        bottom: 20px;
+    }
+    .scroll-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    .theme-toggle-container {
+        top: 20px;
+        right: 20px;
+    }
+    .theme-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
 }
 
 /* ==================================
@@ -147,10 +295,16 @@ h1, h2, h3, h4, h5, h6 {
    Timeline Section
    ================================== */
 .timeline-section {
-    height: 1500vh; /* Extremely long distance to make horizontal scroll feel very slow */
+    height: 1000vh; /* Balanced for cinematic feel on desktop */
     position: relative;
     background: #02070b;
     z-index: 20;
+}
+
+@media (max-width: 768px) {
+    .timeline-section {
+        height: 400vh; /* Original fast height for mobile usability */
+    }
 }
 
 .timeline-sticky {
@@ -288,13 +442,112 @@ h1, h2, h3, h4, h5, h6 {
 /* Removed timeline-spacer as it is no longer needed */
 
 /* ==================================
+   Reviews CTA Section
+   ================================== */
+.reviews-cta-section {
+    position: relative;
+    z-index: 25;
+    background: #02070b;
+    padding: 18vh 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviews-cta-container {
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.reviews-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-style: italic;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.reviews-cta-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 520px;
+}
+
+.reviews-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.reviews-cta-btn i {
+    font-size: 0.9rem;
+    transition: transform 0.4s ease;
+}
+
+.reviews-cta-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4db8ff;
+    color: #4db8ff;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(77, 184, 255, 0.2);
+}
+
+.reviews-cta-btn:hover i {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .reviews-cta-section {
+        padding: 14vh 20px;
+    }
+    .reviews-cta-title {
+        font-size: 2.4rem;
+    }
+    .reviews-cta-desc {
+        font-size: 1rem;
+    }
+    .reviews-cta-btn {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ==================================
    Brain / Mindset Section
    ================================== */
 .brain-section {
     position: relative;
-    height: 3000vh; /* Massive scroll distance for the brain section to ensure labels appear very slowly */
+    height: 2000vh; /* Balanced for cinematic feel on desktop */
     background: #02070b;
     z-index: 30;
+}
+
+@media (max-width: 768px) {
+    .brain-section {
+        height: 700vh; /* Original fast height for mobile usability */
+    }
 }
 
 .brain-sticky {
@@ -469,6 +722,7 @@ h1, h2, h3, h4, h5, h6 {
     .hero-img {
         transform: scale(2);
         transform-origin: bottom center;
+        filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.25)); /* Reduced drop-shadow for mobile only */
     }
 }
 
@@ -614,4 +868,222 @@ h1, h2, h3, h4, h5, h6 {
     .about-text p {
         font-size: 1.15rem;
     }
+}
+
+/* ==================================
+   Lite / Light Mode Styles
+   ================================== */
+body.light-mode {
+    background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+    color: #0f172a;
+}
+
+body.light-mode .scroll-progress-bar {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.2);
+}
+
+body.light-mode .social-btn,
+body.light-mode .scroll-btn {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+body.light-mode .social-btn:hover,
+body.light-mode .scroll-btn:hover {
+    background: #ffffff;
+    color: #2563eb;
+    border-color: rgba(37, 99, 235, 0.4);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+body.light-mode .scroll-btn.scrolling {
+    background: rgba(37, 99, 235, 0.06);
+    color: #2563eb;
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+body.light-mode .timeline-section {
+    background: #f8fafc;
+}
+
+body.light-mode .timeline-title {
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.light-mode .timeline-line {
+    background: rgba(15, 23, 42, 0.1);
+}
+
+body.light-mode .timeline-date {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+body.light-mode .timeline-content {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+body.light-mode .timeline-text h3 {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+body.light-mode .timeline-text p {
+    color: #334155;
+    line-height: 1.7;
+}
+
+body.light-mode .reviews-cta-section {
+    background: #f8fafc;
+}
+
+body.light-mode .reviews-cta-title {
+    color: #0f172a;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .reviews-cta-desc {
+    color: #334155;
+}
+
+body.light-mode .reviews-cta-btn {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    color: #0f172a;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+body.light-mode .reviews-cta-btn:hover {
+    background: #ffffff;
+    border-color: #2563eb;
+    color: #2563eb;
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+}
+
+body.light-mode .brain-section {
+    background: #f8fafc;
+}
+
+body.light-mode .brain-title {
+    background: linear-gradient(90deg, #2563eb, #0f172a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.light-mode .brain-symbol {
+    color: rgba(15, 23, 42, 0.06);
+}
+
+body.light-mode .brain-label {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+body.light-mode .brain-label span {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+body.light-mode .label-line {
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4));
+}
+
+body.light-mode .label-line::after {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    background: #000000;
+}
+
+body.light-mode .about-section {
+    background: #f8fafc;
+}
+
+body.light-mode .about-title {
+    color: #0f172a;
+    text-shadow: 0 0 30px rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .about-text p {
+    color: #334155;
+    line-height: 1.8;
+}
+
+body.light-mode .about-text .highlight {
+    color: #2563eb;
+}
+
+body.light-mode .github-cta-btn {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    color: #0f172a;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+body.light-mode .github-cta-btn:hover {
+    background: #ffffff;
+    border-color: #2563eb;
+    color: #2563eb;
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+}
+
+body.light-mode .about-img {
+    filter: grayscale(100%) contrast(1.05) brightness(0.95);
+}
+
+body.light-mode .about-img:hover {
+    filter: grayscale(40%) contrast(1.1) brightness(1.02);
+}
+
+/* Light Mode overrides for theme toggler and brand social icons */
+body.light-mode .theme-btn {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: #475569; /* Slate icon color for moon */
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+}
+
+body.light-mode .theme-btn:hover {
+    color: #2563eb; /* Soft blue icon color */
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+body.light-mode .social-btn.github {
+    background: #ffffff;
+    border: 1.5px solid rgba(15, 23, 42, 0.15);
+    color: #24292e;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .social-btn.github:hover {
+    background: #24292e;
+    border-color: #24292e;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.light-mode .social-btn.linkedin {
+    background: #ffffff;
+    border: 1.5px solid rgba(0, 119, 181, 0.25);
+    color: #0077b5;
+    box-shadow: 0 4px 15px rgba(0, 119, 181, 0.08);
+}
+
+body.light-mode .social-btn.linkedin:hover {
+    background: #0077b5;
+    border-color: #0077b5;
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 119, 181, 0.2);
 }
