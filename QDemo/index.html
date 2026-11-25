@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محمد مطهر - Q Supermarket</title>
+
+  <!-- Google Fonts: Readex Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="modal-locked">
+
+  <!-- ================= ENTRY MODAL ================= -->
+  <div id="entry-modal-overlay" class="modal-overlay">
+    <div class="modal-card">
+      <h2 class="modal-title">تنبيه مهم قبل ما تبدأ!</h2>
+      <p class="modal-body">
+        هذه الصفحة مصممة بنظام السحب (Scrolling) التفاعلي.. اسحب لتحت عشان القصة تتحرك وتتفاعل معك خطوة بخطوة.
+      </p>
+      <div class="modal-buttons">
+        <button id="modal-btn-1" class="neo-btn">موافق</button>
+        <button id="modal-btn-2" class="neo-btn">موافق برضو</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FULLSCREEN LIGHTBOX MODAL ================= -->
+  <div id="image-lightbox" class="lightbox-overlay" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="إغلاق">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="عرض ملء الشاشة">
+    </div>
+  </div>
+
+  <main class="page-wrapper">
+
+    <!-- ================= SECTION 1: THE COLD NIGHT HOOK ================= -->
+    <section id="section-cold-night" class="narrative-section bg-secondary">
+      <div class="container two-col-layout">
+        <!-- Text (Desktop: Left, Mobile: Top) -->
+        <div class="col-text seq-group-1">
+          <h1 class="headline-xl seq-item-1" id="s1-heading">
+            في ليلة باردة (درجة الحرارة 34)
+          </h1>
+          <div class="alert-box seq-item-1" id="s1-alert">
+            <span class="alert-badge">
+              <span>🚨</span> دقت اجراس الخطر !!
+            </span>
+          </div>
+        </div>
+        <!-- Image (Desktop: Right, Mobile: Bottom) - Appears BEFORE text -->
+        <div class="col-image">
+          <img src="./static/img/cold-night.png" alt="cold-night" class="transparent-asset cold-night-img"
+            id="img-cold-night">
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: THE NEWSPAPER REVEAL ================= -->
+    <section id="section-newspaper" class="narrative-section bg-primary-base">
+      <div class="container center-layout">
+        <div class="newspaper-container">
+          <div class="newspaper-stage">
+            <img src="./static/img/newspaper.png" alt="newspaper" class="transparent-asset newspaper-raw"
+              id="img-newspaper">
+          </div>
+          <div class="newspaper-text-wrap" id="newspaper-text-box">
+            <h2 class="reveal-text-box">بس لحظة....</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: NO CV NEEDED?! ================= -->
+    <section id="section-nocv" class="narrative-section bg-secondary">
+      <div class="container two-col-layout">
+        <!-- Text (Desktop: Left, Mobile: Top) -->
+        <div class="col-text seq-group-3">
+          <h1 class="headline-xxl seq-item-3">
+            ما يبي <span class="cv-underlined">CV</span> ؟...
+          </h1>
+        </div>
+        <!-- Image (Desktop: Right, Mobile: Bottom) -->
+        <div class="col-image">
+          <img src="./static/img/reading-newspaper.png" alt="reading-newspaper" class="transparent-asset"
+            id="img-reading-newspaper">
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: THE REALIZATION & SECRET PROMISE ================= -->
+    <section id="section-realization" class="narrative-section bg-primary-base">
+      <div class="container">
+        <div class="s4-dialogue-layout">
+
+          <!-- Character Column (Large Chibi) -->
+          <div class="s4-actor-column">
+            <img id="dialogue-actor-img" src="./static/img/chibi-surprised.png" alt="chibi character"
+              class="transparent-asset chibi-actor-large">
+          </div>
+
+          <!-- Text Column (Clean, unboxed, expressive text) -->
+          <div class="s4-text-column">
+            <div class="s4-dialogue-wrapper">
+
+              <div class="s4-phrase s4-phrase-1 active">
+                <span class="s4-thought-tag">هممم...</span>
+                <h2 class="s4-headline">
+                  يبيني ابني فيه <span class="highlight-teal">Demo</span> اثبت فيه نفسي
+                </h2>
+              </div>
+
+              <div class="s4-phrase s4-phrase-2">
+                <h2 class="s4-headline">
+                  طيب مو مشكلة <span class="highlight-teal">بقدم نفسي</span>
+                </h2>
+              </div>
+
+              <div class="s4-phrase s4-phrase-3">
+                <h2 class="s4-headline">
+                  وبوريك <span class="highlight-teal">مفاجأة سرية</span> بالاخير
+                </h2>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5: INTRO & OUTSIDE THE BOX ================= -->
+    <section id="section-intro" class="narrative-section bg-contrast-teal section-intro-anchored">
+
+      <!-- Flying Giant Shocked Reaction Guy (Flies from left across character to right) -->
+      <div id="guy-shocked-flyer" class="guy-shocked-flyer">
+        <img src="./static/img/guy-shocked.gif" alt="guy-shocked" class="guy-shocked-flyer-img">
+      </div>
+
+      <div class="container intro-anchored-container">
+
+        <!-- Text (Overhead on mobile, beside character on desktop) -->
+        <div class="intro-dialogue-column">
+          <div class="intro-dialogue-flow">
+
+            <div class="intro-step intro-step-1">
+              <h2 class="intro-main-title text-white">
+                انا <span class="intro-name-emphasis">محمد مطهر</span> , مبرمج في مقتبل العمر
+              </h2>
+            </div>
+
+            <div class="intro-step intro-step-2">
+              <p class="intro-curious-text text-white">طيب وش بعدين؟</p>
+              <p class="intro-statement-text text-white">
+                الشيء الجيد انا ماحب التزم بالافكار الي 67 مبرمج غيري سواها
+              </p>
+            </div>
+
+            <div class="intro-step intro-step-3">
+              <h3 class="shock-text-clean text-white">
+                احب الافكار الشاطحة اكثر
+              </h3>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Very Large Character anchored flush at the bottom -->
+        <div class="intro-character-bottom-anchor">
+          <img id="talking-character-img" src="./static/img/me-talking-1.png" alt="me-talking"
+            class="transparent-asset character-bottom-giant">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SECTION 6: CRAZY / UNCONVENTIONAL PROJECTS ================= -->
+    <section id="section-crazy-projects" class="pinned-showcase-section bg-primary-base">
+      <div class="showcase-pin-wrapper" id="crazy-pin-wrapper">
+        <div class="container showcase-container">
+
+          <div class="showcase-header">
+            <h2 class="headline-xl">يعني اخوكم في الله افكاره زي كذا</h2>
+          </div>
+
+          <div class="slider-stage" id="crazy-stage">
+
+            <!-- Card 1 -->
+            <div class="slide-card neo-card" data-index="0">
+              <h3 class="card-title">محاكي نظام تشغيل لينكس على آلة حاسبة</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/calc-linux.png" alt="محاكي نظام تشغيل لينكس على آلة حاسبة"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">قعدت ابرمجه شهرين, والله فكك</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="slide-card neo-card" data-index="1">
+              <h3 class="card-title">محاكي نظام تشغيل لينكس في ملف pdf (منجد والله)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/linux.pdf.gif" alt="محاكي نظام تشغيل لينكس في ملف pdf"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">لينكس فخم ياخي لحد يلومني</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="slide-card neo-card" data-index="2">
+              <h3 class="card-title">مجسم 3d داخل نفس الآلة الحاسبة؟ (والله لا احللها)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/calc-3d.png" alt="مجسم 3d داخل نفس الآلة الحاسبة"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">شريت الحاسبة بـ 300 ريال حللت ابوها بالمشاريع</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="slide-card neo-card" data-index="3">
+              <h3 class="card-title">مشغل صور داخل تعليقات يوتيوب (احتمال يرفعوا علي بلاغ)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/youtube_markdown.png" alt="مشغل صور داخل تعليقات يوتيوب"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">اضافة على المتصفح تسمح لك تسوي تنسيقات فخمه بتعليقات اليوتيوب, زي الصور مثلا</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="slide-card neo-card" data-index="4">
+              <h3 class="card-title">لغة برمجة بالايموجيات بعد (متلازمة جيل الألفية)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/aslooj-lang.jpeg" alt="لغة برمجة بالايموجيات بعد"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">والله مادري يارجال, بس شغل مرتب معليك</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 7: TECHNICAL MAJORS / SPECIALTIES ================= -->
+    <section id="section-majors" class="pinned-showcase-section bg-secondary">
+      <div class="showcase-pin-wrapper" id="majors-pin-wrapper">
+        <div class="container showcase-container">
+
+          <div class="showcase-header">
+            <h2 class="headline-xl">عالعموم انا متخصص في المجال بعدة افرع ولله الحمد</h2>
+            <div class="headline-sub-badge">
+              <span class="sub-lead-pill">يعني مثلا:</span>
+            </div>
+          </div>
+
+          <div class="slider-stage" id="majors-stage">
+
+            <!-- Major 1 -->
+            <div class="slide-card neo-card major-card-item" data-index="0">
+              <h3 class="card-title">الذكاء الاصطناعي وتوليد المحتوى</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/majors/ai.jpg" alt="الذكاء الاصطناعي وتوليد المحتوى"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">عندي خبرة مجالات مثل تعلم الآلة والتعلم العميق والشبكات العصبية, واسوي اشياء فنانة
+                معليك (موجود كل شيء بمعرض اعمالي)</p>
+            </div>
+
+            <!-- Major 2 -->
+            <div class="slide-card neo-card major-card-item" data-index="1">
+              <h3 class="card-title">الرؤية الحاسوبية وعلم البيانات</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/majors/cv.jpg" alt="الرؤية الحاسوبية وعلم البيانات"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">أخلي الكود "يشوف" ويعرف ليه ويقرر, واقدر اطلع قرارات واستنتاجات من عصيدة بيانات</p>
+            </div>
+
+            <!-- Major 3 -->
+            <div class="slide-card neo-card major-card-item" data-index="2">
+              <h3 class="card-title">هندسة البرمجيات وتطوير الويب</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/majors/programming.jpg" alt="هندسة البرمجيات وتطوير الويب"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">من الواجهة اللي تفتح النفس (UI/UX) إلى السيرفرات وقواعد البيانات اللي تشيل شغل ثقيل
+                (الموقع ذا مثال)</p>
+            </div>
+
+            <!-- Major 4 -->
+            <div class="slide-card neo-card major-card-item" data-index="3">
+              <h3 class="card-title">إنترنت الأشياء والهاردوير</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/majors/hardware-arduino.jpg" alt="إنترنت الأشياء والهاردوير"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">أبرمج شرائح إلكترونية وحساسات تربط الكود بالواقع (يعني مو بس حبيس الشاشات) بالذات
+                اردوينو و esp</p>
+            </div>
+
+            <!-- Major 5 -->
+            <div class="slide-card neo-card major-card-item" data-index="4">
+              <h3 class="card-title">البرمجة المنغولية</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/majors/stupid-programming.png" alt="البرمجة المنغولية"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">هذا تخصص جديد طبعا ههههههههههههه</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 8: SERIOUS / HIGH-IMPACT PROJECTS ================= -->
+    <section id="section-serious-projects" class="pinned-showcase-section bg-primary-base">
+      <div class="showcase-pin-wrapper" id="serious-pin-wrapper">
+        <div class="container showcase-container">
+
+          <div class="showcase-header">
+            <h2 class="headline-lg">
+              <span id="serious-typewriter-target"></span><span id="serious-typewriter-cursor"
+                class="typewriter-cursor">|</span>
+            </h2>
+            <p class="headline-sub">مو دايم ابني اشياء مالها فائده</p>
+            <div class="headline-sub-bold-wrap">
+              <span class="sub-lead-pill">شيكلي هنا:</span>
+            </div>
+          </div>
+
+          <div class="slider-stage" id="serious-stage">
+
+            <!-- Serious 1 -->
+            <div class="slide-card neo-card serious-card-item" data-index="0">
+              <h3 class="card-title">نموذج لغوي مصغر (YoctoLM)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/yoctolm.gif" alt="نموذج لغوي مصغر YoctoLM"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">نموذج AI لغوي (Chatbot) يعمل بالمتصفح بالكامل بدون سيرفرات وضغط وخرابيط</p>
+            </div>
+
+            <!-- Serious 2 -->
+            <div class="slide-card neo-card serious-card-item" data-index="1">
+              <h3 class="card-title">وكيل AI يتعلم ويكتسب مهارات من نفسه (JawnaAI)</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/jawnaai.webp" alt="وكيل AI يتعلم ويكتسب مهارات من نفسه JawnaAI"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">يقدر يضيف اي مهارة ويثبتها في اعداداته</p>
+            </div>
+
+            <!-- Serious 3 -->
+            <div class="slide-card neo-card serious-card-item" data-index="2">
+              <h3 class="card-title">تحليل اسباب نجاح ثمنيلات اليوتويب</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/thumbnails.jpeg" alt="تحليل اسباب نجاح ثمنيلات اليوتويب"
+                  class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">جمعت مجموعة كبيرة من ثمنيلات اليوتويبرز وحللتها ورديت على اهم الاسئلة حول الممارسات
+                الجيدة في الثمنيلات</p>
+            </div>
+
+            <!-- Serious 4 -->
+            <div class="slide-card neo-card serious-card-item" data-index="3">
+              <h3 class="card-title">نظام وموقع ثمد</h3>
+              <div class="card-snug-media" title="انقر لعرض الصورة بملء الشاشة">
+                <img src="./static/img/myprojects/thmmd.webp" alt="نظام وموقع ثمد" class="natural-img zoomable-img">
+              </div>
+              <p class="card-text">من اكثر المشاريع الي تعبت عليها, موقع يقدم منتجات رقمية (تطبيقات ضمن منصة ثمد) ,
+                النظام متفرع ويحتوي كل شيء بما يشمل : قواعد بيانات, الدفع, الواجهات, التشفير والامان, التخزين والسحابة,
+                لوحات تحكم متعوب عليها, الخ</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 9: SECRET SURPRISE TOOL (ML PRICING RADAR) ================= -->
+    <section id="secret-surprise-tool" class="radar-section">
+
+      <!-- CDN Scripts for this section -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
+      <!-- ── Narrative Intro Header ── -->
+      <div class="radar-intro-header">
+        <div class="radar-intro-inner">
+          <h2 class="radar-main-title">
+            المفاجأة السرية: نموذج إنقاذ الأرباح لـ
+            <span class="q-logo-wrap">(<img src="./static/img/q.png" alt="Q" class="inline-q-logo">)</span>
+            🚨
+          </h2>
+          <p class="radar-subtitle">
+            بدل ما أقولك إني أفهم في الـ Machine Learning.. برمجت لك نموذج ML حقيقي يشتغل الحين قدامك في المتصفح!
+            جرب تحرك الأرقام وشوف كيف يقرر الخصم الذهبي لأي منتج قرب ينتهي عشان نمنع الخسارة ونضاعف الربح.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Main Dashboard ── -->
+      <div class="radar-dashboard">
+
+        <!-- RIGHT PANEL: Controls & Presets -->
+        <div class="radar-panel radar-controls-panel">
+          <div class="panel-label-strip">🎛️ أدوات التحكم</div>
+
+          <!-- Quick Presets -->
+          <div class="presets-block">
+            <div class="presets-title">⚡ تجارب جاهزة (اضغط وشوف!)</div>
+            <button class="preset-btn" data-cat="0" data-hours="10" data-stock="60" data-price="12" data-cost="8"
+              data-time="2">
+              🥛 حليب طازج (باقي 10 ساعات)
+            </button>
+            <button class="preset-btn" data-cat="0" data-hours="5" data-stock="40" data-price="15" data-cost="7"
+              data-time="2">
+              🥐 كرواسون مخبز اليوم (باقي 5 ساعات)
+            </button>
+            <button class="preset-btn" data-cat="1" data-hours="18" data-stock="35" data-price="24" data-cost="17"
+              data-time="1">
+              🍗 دجاج مبرد (باقي 18 ساعة)
+            </button>
+          </div>
+
+          <!-- Category -->
+          <div class="control-group">
+            <label class="ctrl-label">📦 فئة المنتج</label>
+            <select id="ctrl-category" class="neo-select">
+              <option value="0">ألبان ومخبوزات</option>
+              <option value="1">لحوم ودواجن</option>
+              <option value="2">سناكات ومشروبات</option>
+              <option value="3">مجمدات</option>
+            </select>
+          </div>
+
+          <!-- Stock Slider -->
+          <div class="control-group">
+            <label class="ctrl-label">📊 الكمية المتبقية: <span id="val-stock" class="ctrl-val-badge">60</span>
+              وحدة</label>
+            <input type="range" id="ctrl-stock" class="neo-slider" min="5" max="120" value="60">
+          </div>
+
+          <!-- Hours Slider -->
+          <div class="control-group">
+            <label class="ctrl-label">⏳ ساعات حتى الانتهاء: <span id="val-hours" class="ctrl-val-badge">10</span>
+              ساعة</label>
+            <input type="range" id="ctrl-hours" class="neo-slider" min="1" max="48" value="10">
+          </div>
+
+          <!-- Price & Cost -->
+          <div class="control-group two-inputs">
+            <div class="input-wrap">
+              <label class="ctrl-label">💰 السعر الأصلي (ريال)</label>
+              <input type="number" id="ctrl-price" class="neo-input" value="12" min="1" max="500" step="0.5">
+            </div>
+            <div class="input-wrap">
+              <label class="ctrl-label">🏷️ تكلفة المنتج (ريال)</label>
+              <input type="number" id="ctrl-cost" class="neo-input" value="8" min="0.5" max="490" step="0.5">
+            </div>
+          </div>
+          <div class="margin-badge-wrap">
+            <span class="margin-badge">هامش الربح الحالي: <strong id="margin-display">33.3%</strong></span>
+          </div>
+
+          <!-- Time of Day -->
+          <div class="control-group">
+            <label class="ctrl-label">🕐 وقت اليوم</label>
+            <div class="time-toggle-group">
+              <button class="time-btn" data-time="0">صباح ☀️</button>
+              <button class="time-btn active" data-time="1">عصر 🌤</button>
+              <button class="time-btn" data-time="2">ذروة الليل 🔥</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT PANEL: Live ML Output -->
+        <div class="radar-panel radar-output-panel">
+
+          <!-- Big Decision Hero Card -->
+          <div class="decision-hero-card">
+            <div class="decision-label">الخصم الذهبي المقترح</div>
+            <div class="decision-discount" id="result-discount">35%</div>
+            <div class="decision-new-price">
+              السعر الجديد:
+              <span id="result-new-price" class="new-price-val">7.80 ريال</span>
+            </div>
+          </div>
+
+          <!-- Before vs After -->
+          <div class="compare-grid">
+            <div class="compare-box compare-before">
+              <div class="compare-box-title">❌ بدون تدخل (0% خصم)</div>
+              <div class="compare-row"><span>المباع المتوقع</span><strong id="before-sold">22 وحدة</strong></div>
+              <div class="compare-row red"><span>الهالك</span><strong id="before-waste">38 وحدة</strong></div>
+              <div class="compare-row red"><span>صافي الربح/الخسارة</span><strong id="before-profit">-ريال 128</strong>
+              </div>
+            </div>
+            <div class="compare-box compare-after">
+              <div class="compare-box-title">✅ بقرار الرادار (ML)</div>
+              <div class="compare-row"><span>المباع المتوقع</span><strong id="after-sold">58 وحدة</strong></div>
+              <div class="compare-row green"><span>الهالك</span><strong id="after-waste">2 وحدة</strong></div>
+              <div class="compare-row green"><span>صافي الربح المُنقَذ</span><strong id="after-profit">+ريال
+                  139</strong></div>
+            </div>
+          </div>
+
+          <!-- Profit Chart -->
+          <div class="chart-wrap">
+            <div class="chart-title">📈 منحنى الربح مقابل الخصم</div>
+            <canvas id="profit-chart" height="160"></canvas>
+          </div>
+
+          <!-- Promo Sticker -->
+          <div class="promo-sticker" id="promo-sticker">
+            <div class="promo-fire">🔥</div>
+            <div class="promo-text" id="promo-text">
+              عرض إنقاذ آخر الليل في
+              <span class="q-logo-wrap">(<img src="./static/img/q.png" alt="Q" class="inline-q-logo">)</span>!
+              خصم <strong id="promo-discount">35%</strong> على حليب طازج لمدة
+              <strong id="promo-hours">10</strong> ساعات فقط!
+            </div>
+            <div class="promo-seal">عرض محدود ⏱️</div>
+          </div>
+        </div>
+
+      </div><!-- /.radar-dashboard -->
+
+      <!-- ── HOW IT WORKS (Interactive Visual Explainer) ── -->
+      <div class="radar-explainer-wrap">
+        <div class="radar-explainer-card">
+          <h3 class="explainer-title">كيف يشتغل النموذج من جوا؟ 🧠</h3>
+
+          <!-- Interactive Pipeline Steps -->
+          <div class="pipeline-visual">
+
+            <!-- Step 1: Inputs -->
+            <div class="pipeline-step pipeline-step-inputs" id="pipe-step-1">
+              <div class="pipe-step-icon">📥</div>
+              <div class="pipe-step-label">المدخلات</div>
+              <div class="pipe-step-items">
+                <span class="pipe-tag">📦 الفئة</span>
+                <span class="pipe-tag">⏳ الساعات</span>
+                <span class="pipe-tag">📊 الكمية</span>
+                <span class="pipe-tag">💰 السعر</span>
+                <span class="pipe-tag">🕐 الوقت</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- Step 2: ML Model -->
+            <div class="pipeline-step pipeline-step-model" id="pipe-step-2">
+              <div class="pipe-step-icon">🌲</div>
+              <div class="pipe-step-label">Random Forest</div>
+              <div class="pipe-step-sublabel">15,000 سيناريو تجزئة</div>
+              <div class="pipe-step-items">
+                <span class="pipe-tag pipe-tag-model">D̂(d) = طلب متوقع</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- Step 3: Optimizer -->
+            <div class="pipeline-step pipeline-step-optimizer" id="pipe-step-3">
+              <div class="pipe-step-icon">⚡</div>
+              <div class="pipe-step-label">مُحسِّن الربح</div>
+              <div class="pipe-step-sublabel">0% → 70% في أجزاء من الثانية</div>
+              <div class="pipe-formula-mini">
+                min(Q, D̂) × P(1−d) − Q×C
+              </div>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- Step 4: Output -->
+            <div class="pipeline-step pipeline-step-output" id="pipe-step-4">
+              <div class="pipe-step-icon">🏆</div>
+              <div class="pipe-step-label">الخصم الذهبي</div>
+              <div class="pipe-output-live">
+                <span id="explainer-live-disc">35%</span>
+              </div>
+              <div class="pipe-step-sublabel">أعلى ربح ممكن</div>
+            </div>
+
+          </div><!-- /.pipeline-visual -->
+
+          <!-- Animated "pulse" data flow line -->
+          <div class="pipeline-flow-line">
+            <div class="pipeline-flow-dot" id="pipe-flow-dot"></div>
+          </div>
+
+          <!-- Closing note -->
+          <p class="explainer-closing">
+            هذا نموذج مصغر مبني على بيانات محاكاة.. تخيل دقته لما نربطه ببيانات مبيعات
+            <span class="q-logo-wrap">(<img src="./static/img/q.png" alt="Q" class="inline-q-logo">)</span>
+            الحقيقية!
+          </p>
+        </div>
+      </div><!-- /.radar-explainer-wrap -->
+
+    </section><!-- /#secret-surprise-tool -->
+
+
+    <!-- ================= SECTION 10: GRAND FINALE & TIMED CONTACT MODAL ================= -->
+    <section id="grand-finale" class="finale-section">
+
+      <!-- Single fullscreen autotype stage -->
+      <div class="finale-stage" id="finale-stage">
+        <div class="finale-content-stack">
+          <!-- Reaction image: pops dynamically with personality -->
+          <div class="finale-flyby-global" id="finale-flyby-global" aria-hidden="true">
+            <img id="finale-flyby-img" src="" alt="" class="finale-flyby-img-global">
+          </div>
+          <div class="finale-typewriter-wrap">
+            <span class="finale-typed-text" id="finale-typed-text"></span><span class="finale-cursor"
+              id="finale-cursor">|</span>
+          </div>
+          <!-- Reopen Button visible in the section at the end -->
+          <div class="finale-actions" id="finale-actions">
+            <button class="finale-reopen-btn neo-btn" id="reopen-contact-btn">📇 إعادة فتح بطاقة التواصل</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Modal Overlay -->
+      <div id="contact-modal-overlay" class="contact-overlay" aria-hidden="true">
+        <div class="contact-modal-card">
+          <button class="contact-modal-close" id="contact-modal-close" aria-label="إغلاق">×</button>
+
+          <!-- Avatar + Name -->
+          <div class="contact-avatar-wrap">
+            <img src="./static/img/pfp.png" alt="محمد" class="contact-avatar">
+          </div>
+          <div class="contact-name">محمد مطهر</div>
+          <div class="contact-tagline">مبرمج · مطور ويب · ML</div>
+
+          <!-- Contact Buttons with real app icons -->
+          <div class="contact-buttons-col">
+            <a href="https://wa.me/966569322004" target="_blank" rel="noopener"
+              class="contact-btn contact-btn-whatsapp">
+              <img src="./static/img/whatsapp.png" alt="WhatsApp" class="contact-app-icon">
+              <span class="contact-btn-label">
+                <span class="contact-btn-platform">واتساب</span>
+                <span class="contact-btn-handle">+966569322004</span>
+              </span>
+              <span class="contact-btn-arrow">↗</span>
+            </a>
+            <a href="https://instagram.com/z1.2d" target="_blank" rel="noopener"
+              class="contact-btn contact-btn-instagram">
+              <img src="./static/img/instagram.png" alt="Instagram" class="contact-app-icon">
+              <span class="contact-btn-label">
+                <span class="contact-btn-platform">إنستغرام</span>
+                <span class="contact-btn-handle">@z1.2d</span>
+              </span>
+              <span class="contact-btn-arrow">↗</span>
+            </a>
+            <a href="mailto:hamadanime1@gmail.com" class="contact-btn contact-btn-email">
+              <img src="./static/img/email.png" alt="Email" class="contact-app-icon">
+              <span class="contact-btn-label">
+                <span class="contact-btn-platform">إيميل</span>
+                <span class="contact-btn-handle">hamadanime1@gmail.com</span>
+              </span>
+              <span class="contact-btn-arrow">↗</span>
+            </a>
+            <a href="https://mohdmot.com/" target="_blank" rel="noopener"
+              class="contact-btn contact-btn-portfolio">
+              <img src="./static/img/portfolio.svg" alt="بورفوليو" class="contact-app-icon">
+              <span class="contact-btn-label">
+                <span class="contact-btn-platform">بورفوليو</span>
+                <span class="contact-btn-handle">mohdmot.com</span>
+              </span>
+              <span class="contact-btn-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /#grand-finale -->
+
+  </main>
+
+  <script src="./script.js"></script>
+
+
+  <!-- ══════════════════════════════════════════════
+       PRICING RADAR ML ENGINE + GRAND FINALE LOGIC
+  ══════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ══════════════════════════════════════════
+         1. MATH / ONNX ENGINE
+      ══════════════════════════════════════════ */
+      var isFileProtocol = location.protocol === 'file:';
+      var ortSession = null;
+
+      var CAT_SENSITIVITY = [1.4, 0.9, 1.1, 0.6];
+      var TIME_MULTIPLIER = [0.7, 1.0, 1.35];
+
+      function predictDemand(discount, stock, hoursLeft, category, timeOfDay) {
+        var sens = CAT_SENSITIVITY[category] || 1.0;
+        var timeMul = TIME_MULTIPLIER[timeOfDay] || 1.0;
+        var urgency = Math.max(0.3, 1 - hoursLeft / 48);
+        var base = stock * sens * timeMul * urgency;
+        var elasticity = 1 + discount * 2.8 * sens;
+        return Math.min(stock * 1.2, base * elasticity);
+      }
+
+      function netProfit(discount, stock, price, cost, category, hoursLeft, timeOfDay) {
+        var sold = Math.min(stock, predictDemand(discount, stock, hoursLeft, category, timeOfDay));
+        return sold * price * (1 - discount) - stock * cost;
+      }
+
+      function findOptimalDiscount(stock, price, cost, category, hoursLeft, timeOfDay) {
+        var bestD = 0, bestProfit = -Infinity;
+        for (var d = 0; d <= 70; d++) {
+          var p = netProfit(d / 100, stock, price, cost, category, hoursLeft, timeOfDay);
+          if (p > bestProfit) { bestProfit = p; bestD = d; }
+        }
+        return bestD;
+      }
+
+      function loadONNX() {
+        if (isFileProtocol || typeof ort === 'undefined') return Promise.resolve();
+        return ort.InferenceSession.create('./pricing_radar.onnx').then(function (sess) {
+          ortSession = sess;
+          console.log('[Radar] ONNX loaded ✅');
+        }).catch(function (e) {
+          console.warn('[Radar] ONNX failed, using math fallback:', e.message);
+        });
+      }
+
+      function runInference(stock, price, cost, category, hoursLeft, timeOfDay) {
+        if (ortSession) {
+          try {
+            var input = new ort.Tensor('float32',
+              new Float32Array([category, hoursLeft, stock, price, cost, timeOfDay]), [1, 6]);
+            var feeds = {};
+            feeds[ortSession.inputNames[0]] = input;
+            return ortSession.run(feeds).then(function (results) {
+              var out = results[ortSession.outputNames[0]].data;
+              return Math.max(0, Math.min(70, Math.round(out[0])));
+            }).catch(function (e) {
+              console.warn('[Radar] inference failed:', e.message);
+              return findOptimalDiscount(stock, price, cost, category, hoursLeft, timeOfDay);
+            });
+          } catch (e) {
+            console.warn('[Radar] inference error:', e.message);
+          }
+        }
+        return Promise.resolve(findOptimalDiscount(stock, price, cost, category, hoursLeft, timeOfDay));
+      }
+
+      /* ══════════════════════════════════════════
+         2. DOM REFS
+      ══════════════════════════════════════════ */
+      var selCategory = document.getElementById('ctrl-category');
+      var slStock = document.getElementById('ctrl-stock');
+      var valStock = document.getElementById('val-stock');
+      var slHours = document.getElementById('ctrl-hours');
+      var valHours = document.getElementById('val-hours');
+      var inPrice = document.getElementById('ctrl-price');
+      var inCost = document.getElementById('ctrl-cost');
+      var marginDisp = document.getElementById('margin-display');
+      var timeBtns = document.querySelectorAll('.time-btn');
+      var resDiscount = document.getElementById('result-discount');
+      var resNewPrice = document.getElementById('result-new-price');
+      var beforeSold = document.getElementById('before-sold');
+      var beforeWaste = document.getElementById('before-waste');
+      var beforeProfit = document.getElementById('before-profit');
+      var afterSold = document.getElementById('after-sold');
+      var afterWaste = document.getElementById('after-waste');
+      var afterProfit = document.getElementById('after-profit');
+      var promoText = document.getElementById('promo-text');
+      var explainerDisc = document.getElementById('explainer-live-disc');
+
+      var currentTimeOfDay = 1;
+      var promoProductName = 'حليب طازج';
+
+      /* ══════════════════════════════════════════
+         3. CHART.JS
+      ══════════════════════════════════════════ */
+      var profitChart = null;
+
+      function initChart() {
+        var ctx = document.getElementById('profit-chart');
+        if (!ctx || typeof Chart === 'undefined') return;
+        profitChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70].map(function (n) { return n + '%'; }),
+            datasets: [{
+              label: 'صافي الربح (ريال)',
+              data: new Array(15).fill(0),
+              borderColor: '#0e97a7',
+              backgroundColor: 'rgba(14,151,167,0.15)',
+              borderWidth: 3,
+              pointBackgroundColor: '#111',
+              pointBorderColor: '#0e97a7',
+              pointRadius: 5,
+              tension: 0.3,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#111',
+                titleColor: '#f7f7f7',
+                bodyColor: '#70c1c9',
+                borderColor: '#0e97a7',
+                borderWidth: 2
+              }
+            },
+            scales: {
+              x: { ticks: { color: '#111', font: { family: "'Readex Pro'", weight: '600' } }, grid: { color: 'rgba(17,17,17,0.15)' } },
+              y: { ticks: { color: '#111', font: { family: "'Readex Pro'" } }, grid: { color: 'rgba(17,17,17,0.15)' } }
+            }
+          }
+        });
+      }
+
+      function updateChart(stock, price, cost, category, hoursLeft, timeOfDay, optimalD) {
+        if (!profitChart) return;
+        var pts = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70].map(function (d) {
+          return Math.round(netProfit(d / 100, stock, price, cost, category, hoursLeft, timeOfDay));
+        });
+        profitChart.data.datasets[0].data = pts;
+        var optIdx = Math.round(optimalD / 5);
+        var pointColors = new Array(15).fill('#111');
+        var pointSizes = new Array(15).fill(5);
+        if (optIdx >= 0 && optIdx < 15) { pointColors[optIdx] = '#ff3b3b'; pointSizes[optIdx] = 10; }
+        profitChart.data.datasets[0].pointBackgroundColor = pointColors;
+        profitChart.data.datasets[0].pointRadius = pointSizes;
+        profitChart.update();
+      }
+
+      /* ══════════════════════════════════════════
+         4. MAIN UPDATE
+      ══════════════════════════════════════════ */
+      function runUpdate() {
+        var stock = parseInt(slStock.value, 10);
+        var hours = parseInt(slHours.value, 10);
+        var price = parseFloat(inPrice.value) || 12;
+        var cost = parseFloat(inCost.value) || 8;
+        var category = parseInt(selCategory.value, 10);
+        var timeOfDay = currentTimeOfDay;
+
+        if (marginDisp) {
+          var margin = price > 0 ? (((price - cost) / price) * 100).toFixed(1) : '0.0';
+          marginDisp.textContent = margin + '%';
+        }
+
+        runInference(stock, price, cost, category, hours, timeOfDay).then(function (optD) {
+          var discFrac = optD / 100;
+
+          if (resDiscount) resDiscount.textContent = optD + '%';
+          if (resNewPrice) resNewPrice.textContent = (price * (1 - discFrac)).toFixed(2) + ' ريال';
+          if (explainerDisc) explainerDisc.textContent = optD + '%';
+
+          var soldBefore = Math.floor(Math.min(stock, predictDemand(0, stock, hours, category, timeOfDay)));
+          var wasteBefore = stock - soldBefore;
+          var profitBefore = Math.round(soldBefore * price - stock * cost);
+
+          var soldAfter = Math.floor(Math.min(stock, predictDemand(discFrac, stock, hours, category, timeOfDay)));
+          var wasteAfter = Math.max(0, stock - soldAfter);
+          var profitAfter = Math.round(soldAfter * price * (1 - discFrac) - stock * cost);
+
+          if (beforeSold) beforeSold.textContent = soldBefore + ' وحدة';
+          if (beforeWaste) beforeWaste.textContent = wasteBefore + ' وحدة';
+          if (beforeProfit) {
+            beforeProfit.textContent = (profitBefore >= 0 ? '+' : '') + 'ريال ' + profitBefore;
+            beforeProfit.style.color = profitBefore >= 0 ? '#111' : '#d9534f';
+          }
+          if (afterSold) afterSold.textContent = soldAfter + ' وحدة';
+          if (afterWaste) afterWaste.textContent = wasteAfter + ' وحدة';
+          if (afterProfit) {
+            afterProfit.textContent = (profitAfter >= 0 ? '+' : '') + 'ريال ' + profitAfter;
+            afterProfit.style.color = profitAfter >= 0 ? '#0e97a7' : '#d9534f';
+          }
+          if (promoText) {
+            promoText.innerHTML = 'عرض إنقاذ في <span class="q-logo-wrap">(<img src="./static/img/q.png" alt="Q" class="inline-q-logo">)</span>! خصم <strong>' + optD + '%</strong> على ' + promoProductName + ' لمدة <strong>' + hours + '</strong> ساعات فقط!';
+          }
+          updateChart(stock, price, cost, category, hours, timeOfDay, optD);
+        });
+      }
+
+      /* ══════════════════════════════════════════
+         5. EVENT LISTENERS
+      ══════════════════════════════════════════ */
+      if (slStock) slStock.addEventListener('input', function () { if (valStock) valStock.textContent = slStock.value; runUpdate(); });
+      if (slHours) slHours.addEventListener('input', function () { if (valHours) valHours.textContent = slHours.value; runUpdate(); });
+      if (inPrice) inPrice.addEventListener('input', runUpdate);
+      if (inCost) inCost.addEventListener('input', runUpdate);
+      if (selCategory) selCategory.addEventListener('change', runUpdate);
+
+      timeBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          timeBtns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentTimeOfDay = parseInt(btn.dataset.time, 10);
+          runUpdate();
+        });
+      });
+
+      document.querySelectorAll('.preset-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (selCategory) selCategory.value = btn.dataset.cat;
+          if (slStock) { slStock.value = btn.dataset.stock; if (valStock) valStock.textContent = btn.dataset.stock; }
+          if (slHours) { slHours.value = btn.dataset.hours; if (valHours) valHours.textContent = btn.dataset.hours; }
+          if (inPrice) inPrice.value = btn.dataset.price;
+          if (inCost) inCost.value = btn.dataset.cost;
+          currentTimeOfDay = parseInt(btn.dataset.time, 10);
+          timeBtns.forEach(function (b) {
+            b.classList.toggle('active', parseInt(b.dataset.time, 10) === currentTimeOfDay);
+          });
+          var stripped = btn.textContent.trim().replace(/[\u{1F300}-\u{1FFFF}]/gu, '').trim();
+          promoProductName = stripped.split('(')[0].trim() || 'منتج';
+          runUpdate();
+        });
+      });
+
+      /* ══════════════════════════════════════════
+         6. GRAND FINALE — AUTOTYPE SEQUENCE
+      ══════════════════════════════════════════ */
+      var finalTypedEl = document.getElementById('finale-typed-text');
+      var flybyGlobal = document.getElementById('finale-flyby-global');
+      var flybyImg = document.getElementById('finale-flyby-img');
+      var modalOverlay = document.getElementById('contact-modal-overlay');
+      var modalClose = document.getElementById('contact-modal-close');
+      var reopenBtn = document.getElementById('reopen-contact-btn');
+      var finaleTriggered = false;
+
+      function typeText(text, el, speed, cb) {
+        var i = 0;
+        el.textContent = '';
+        function tick() {
+          if (i < text.length) {
+            el.textContent += text[i];
+            i++;
+            setTimeout(tick, speed);
+          } else {
+            if (cb) cb();
+          }
+        }
+        tick();
+      }
+
+      function eraseText(el, speed, cb) {
+        function tick() {
+          var t = el.textContent;
+          if (t.length > 0) {
+            el.textContent = t.slice(0, -1);
+            setTimeout(tick, speed);
+          } else {
+            if (cb) cb();
+          }
+        }
+        tick();
+      }
+
+      var finaleActions = document.getElementById('finale-actions');
+
+      function runFlyby(src, cb) {
+        if (!flybyGlobal || !flybyImg) { if (cb) cb(); return; }
+        flybyImg.src = src;
+        flybyGlobal.classList.remove('flyby-running');
+        void flybyGlobal.offsetWidth;
+        flybyGlobal.classList.add('flyby-running');
+        setTimeout(function () {
+          flybyGlobal.classList.remove('flyby-running');
+          if (cb) cb();
+        }, 1850);
+      }
+
+      function openContactModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.add('active');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        if (finaleActions) finaleActions.classList.add('visible');
+      }
+
+      function closeContactModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove('active');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        if (finaleActions) finaleActions.classList.add('visible');
+      }
+
+      function runFinaleSequence() {
+        if (finaleTriggered) return;
+        finaleTriggered = true;
+        if (!finalTypedEl) { console.warn('[Finale] finalTypedEl not found'); return; }
+
+        var TS = 55;  /* type speed ms/char  */
+        var ES = 22;  /* erase speed ms/char */
+
+        /* ① type sentence 1 */
+        setTimeout(function () {
+          typeText('اتوقع كذا رميت كل كروتي وسويت الي علي', finalTypedEl, TS, function () {
+            /* ② 1.2s → hands-up reaction */
+            setTimeout(function () {
+              runFlyby('./static/img/hands-up.webp', function () {
+                /* ③ 0.6s → erase */
+                setTimeout(function () {
+                  eraseText(finalTypedEl, ES, function () {
+                    /* ④ type sentence 2 */
+                    typeText('رح يظهر قدامك الحين وسائل التواصل معي', finalTypedEl, TS, function () {
+                      /* ⑤ 1.2s → call-me reaction */
+                      setTimeout(function () {
+                        runFlyby('./static/img/call-me.png', function () {
+                          /* ⑥ 0.6s → type sentence 3 */
+                          setTimeout(function () {
+                            typeText('واتمنى اكون عند حسن ظنك', finalTypedEl, TS, function () {
+                              /* ⑦ 1.8s → open modal & reveal reopen button */
+                              setTimeout(openContactModal, 1800);
+                            });
+                          }, 600);
+                        });
+                      }, 1200);
+                    });
+                  });
+                }, 600);
+              });
+            }, 1200);
+          });
+        }, 500);
+      }
+
+      /* Scroll trigger */
+      var finaleSection = document.getElementById('grand-finale');
+      if (finaleSection && 'IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { runFinaleSequence(); obs.disconnect(); }
+          });
+        }, { threshold: 0.35 });
+        obs.observe(finaleSection);
+      }
+
+      if (modalClose) modalClose.addEventListener('click', closeContactModal);
+      if (reopenBtn) reopenBtn.addEventListener('click', openContactModal);
+      if (modalOverlay) modalOverlay.addEventListener('click', function (e) {
+        if (e.target === modalOverlay) closeContactModal();
+      });
+
+      /* ══════════════════════════════════════════
+         7. INIT
+      ══════════════════════════════════════════ */
+      loadONNX().then(function () {
+        initChart();
+        runUpdate();
+      });
+
+    })();
+  </script>
+
+</body>
+
+</html>
